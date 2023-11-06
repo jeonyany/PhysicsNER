@@ -134,7 +134,7 @@ class NerProcessor(DataProcessor):
 
     def get_test_examples(self, data_dir):
         return self._create_example(
-            self._read_data(os.path.join(data_dir, "singletest.txt")), "test"
+            self._read_data(os.path.join(data_dir, "my_test.txt")), "test"
         )
 
     def get_labels(self):
@@ -454,7 +454,7 @@ def main(_):
             drop_remainder=False)
 
         result = estimator.predict(input_fn=predict_input_fn)  # result就是predictions,shape==(batch_size,max_seq_length)
-        output_predict_file = os.path.join(FLAGS.output_dir, "label_testres.txt")
+        output_predict_file = os.path.join(FLAGS.output_dir, "my_test.txt")
         Writer(output_predict_file, result, batch_tokens, batch_labels, id2label)
 
 

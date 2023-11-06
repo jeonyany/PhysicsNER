@@ -1,5 +1,10 @@
-import predict
+import os
 
+import predict
+import subprocess
+
+input_dir = './data'
+output_dir = './output'
 
 def write_input_data(text, file_path):
     text_list = list(text)
@@ -37,7 +42,7 @@ def get_entity(file_path):
 
 if __name__ == '__main__':
     text = input()
-    filepath = './data/my_test.txt'
-    write_input_data(text, filepath)
-    predict.main()
-    get_entity(filepath)
+    filename = 'mytest.txt'
+    write_input_data(text, os.path.join(input_dir, "my_test.txt"))
+    subprocess.run(["python", "predict.py"])
+    print(get_entity(os.path.join(output_dir, "my_test.txt")))
