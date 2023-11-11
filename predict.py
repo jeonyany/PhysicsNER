@@ -3,8 +3,6 @@ import os
 import pickle
 from absl import flags, logging
 import modeling
-import metrics
-import optimization
 import tokenization
 import tensorflow as tf
 import numpy as np
