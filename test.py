@@ -1,10 +1,11 @@
 import os
 
-import predict
 import subprocess
 
 input_dir = './data'
 output_dir = './output'
+
+chinese_entity_dic = {'OBJ': '物体', 'MOV': '场景', 'PRO': '属性', 'NUM': '数值'}
 
 def write_input_data(text, file_path):
     text_list = list(text)
@@ -39,10 +40,19 @@ def get_entity(file_path):
         i += 1
     return entity_dict
 
+def write_analysis_result(entity_dict):
+    f = open(os.path.join(output_dir, "my_res.txt"), 'w', encoding='utf-8')
+    for key in entity_dict:
+        for i in range(len(entity_dict[key])):
+            f.write(chinese_entity_dic[key] + '\t' + entity_dict[key][i] + '\n')
+            print(chinese_entity_dic[key] + '\t' + entity_dict[key][i])
+    f.close()
 
 if __name__ == '__main__':
     text = input()
-    filename = 'mytest.txt'
-    write_input_data(text, os.path.join(input_dir, "my_test.txt"))
-    subprocess.run(["python", "predict.py"])
-    print(get_entity(os.path.join(output_dir, "my_test.txt")))
+    filename = 'my_test.txt'
+    write_input_data(text, os.path.join(input_dir, filename))
+    subprocess.run(["python", "./predict.py"])
+    entity_dic = get_entity(os.path.join(output_dir, filename))
+    print(entity_dic)
+    write_analysis_result(entity_dic)
