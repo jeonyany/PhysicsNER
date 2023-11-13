@@ -42,6 +42,12 @@ def get_entity(file_path):
 
 def write_analysis_result(entity_dict):
     f = open(os.path.join(output_dir, "my_res.txt"), 'w', encoding='utf-8')
+    count = 0
+    for key in entity_dict:
+        count += len(entity_dict[key])
+    f.write(str(count))
+    f.write('\n')
+    print(count)
     for key in entity_dict:
         for i in range(len(entity_dict[key])):
             f.write(chinese_entity_dic[key] + '\t' + entity_dict[key][i] + '\n')
